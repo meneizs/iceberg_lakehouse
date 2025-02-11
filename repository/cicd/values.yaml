@@ -1,0 +1,24 @@
+#### Configuração do ArgoCD.
+#### Caso seja necessário definir mais parâmetros verifique os parametros disponíveis no repositória aplicação:
+#### https://github.com/argoproj/argo-helm/blob/main/charts/argo-cd/values.yaml
+nameOverride: argocd
+namespaceOverride: "cicd"
+
+global:
+  image: 
+    repository: quay.io/argoproj/argocd
+    tag: "v2.14.2" 
+    imagePullPolicy: IfNotPresent
+  logging:
+    format: json
+    level: info
+  nodeSelector:
+    group: "manager"
+configs:
+  repositories:
+      repository:
+        url: https://github.com/meneizs/iceberg_lakehouse
+        name: lakehouse 
+        type: git
+        project: default
+
