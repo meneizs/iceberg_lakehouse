@@ -15,7 +15,9 @@ spec:
     targetRevision: 12.2.0
     helm:
       values: |-
-        defaultBuckets: "airflow, lakehouse"
+        auth:
+          existingSecret: minio-secrets
+        defaultBuckets: "airflow, lakehouse, spark"
     chart: minio
   syncPolicy:
     automated:
