@@ -17,7 +17,7 @@ global:
 configs:
   repositories:
       repository:
-        url: https://github.com/meneizs/iceberg_lakehouse
+        url: https://github.com/meneizs/iceberg_lakehouse.git
         name: lakehouse 
         type: git
         project: default
