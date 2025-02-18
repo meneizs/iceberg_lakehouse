@@ -10,5 +10,6 @@ kubectl create namespace cicd
 kubectl create namespace management
 kubectl create namespace storage
 kubectl create namespace database
+kubectl create namespace monitoring
 ```
 
