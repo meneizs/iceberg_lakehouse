@@ -1,0 +1,42 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: airflow
+  annotations:
+    argocd.argoproj.io/sync-wave: "5"
+  namespace: cicd
+spec:
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: orchestrator
+  project: default
+  source:
+    repoURL: "https://airflow.apache.org/"
+    targetRevision: 1.15.0
+    helm:
+      values: |-
+        defaultAirflowRepository: apache/airflow
+        defaultAirflowTag: "2.9.3"
+        airflowVersion: "2.9.3"
+
+        images:
+          statsd:
+            repository: quay.io/prometheus/statsd-exporter
+            tag: v0.26.1
+            pullPolicy: IfNotPresent
+          gitSync:
+            repository: registry.k8s.io/git-sync/git-sync
+            tag: v4.1.0
+            pullPolicy: IfNotPresent
+
+        nodeSelector: 
+          group: manager
+
+        labels: 
+          app: airflow
+
+    chart: airflow
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
